@@ -7,10 +7,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    userId: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
     email: {
       type: DataTypes.STRING(255),
       allowNull: false
@@ -19,12 +15,12 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(255),
       allowNull: false
     },
-    firstName: {
+    name: {
       type: DataTypes.STRING(255),
       allowNull: false
     },
     dateOfBirth: {
-      type: DataTypes.STRING(255),
+      type: DataTypes.DATE,
       allowNull: false
     },
     gender: {
