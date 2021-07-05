@@ -1,0 +1,19 @@
+
+{
+  "development": {
+    "database": "tinder_database",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "protocol": "postgres",
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    },
+    "use_env_variable": "DATABASE_URL"
+  }
+}
