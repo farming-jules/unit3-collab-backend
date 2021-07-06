@@ -1,4 +1,4 @@
-const { body } = require('express-validator')
+const { body, check } = require('express-validator')
 const { User } = require('../../../models')
 const { UserImage } = require('../../../models')
 
@@ -13,7 +13,7 @@ const permittedParams = [
   "lookingFor",
   "location",
   "Bio",
-  "image"
+  "UserImages.*.image"
 ]
 
 const validation = [
@@ -25,17 +25,19 @@ const validation = [
   body('lookingFor').isString().withMessage('Looking For must be a String').notEmpty().withMessage('Looking For cannot be empty'),
   body('location').isString().withMessage('Location must be a String').notEmpty().withMessage('Location cannot be empty'),
   body('Bio').isString().withMessage('Bio must be a String').notEmpty().withMessage('Bio cannot be empty'),
-  body('image').isString().notEmpty().withMessage('You need to put at least 1 image')
+  check('UserImages').custom((value, { req }) => {
+    if (!req.files && req.files.length < 1) return false
+  }).withMessage('You need to put at least 1 image')
 ]
 
 const apiMyProfileUpdate = async function(req, res) {
   const { locals: { currentUser } } = res
   const { body: userParams } = req
 
-  const profile = await currentUser.createProduct(userParams, { fields: permittedParams })
+  const profile = await currentUser.createProfile(userParams, { fields: permittedParams })
   await profile.update({ image: req.file.location }, { fields: permittedParams })
 
-  res.status(200).json(auction)
+  res.status(200).json(profile)
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), MulterParser.array('image'), validation, apiMyProfileUpdate]
+module.exports = [authenticateCurrentUserByToken('json'), MulterParser.array('UserImages'), validation, apiMyProfileUpdate]
