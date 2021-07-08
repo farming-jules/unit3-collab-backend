@@ -2,7 +2,7 @@ const { body, check } = require('express-validator')
 const { User } = require('../../../models')
 const { UserImage } = require('../../../models')
 
-const { authenticateCurrentUserByToken, MulterParser } = require('../../_helpers')
+const { authenticateCurrentUserByToken, MulterParser, checkValidation } = require('../../_helpers')
 
 const permittedParams = [
   "name",
@@ -34,10 +34,12 @@ const apiMyProfileUpdate = async function(req, res) {
   const { locals: { currentUser } } = res
   const { body: userParams } = req
 
-  const profile = await currentUser.createProfile(userParams, { fields: permittedParams })
-  await profile.update({ image: req.file.location }, { fields: permittedParams })
+  const profile = await currentUser.update(userParams, { fields: permittedParams })
+
+  console.log(req.files)
+  // await profile.update({ image: req.file.location }, { fields: permittedParams })
 
   res.status(200).json(profile)
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), MulterParser.array('UserImages'), validation, apiMyProfileUpdate]
+module.exports = [authenticateCurrentUserByToken('json'), MulterParser.array('UserImages'), validation, checkValidation, apiMyProfileUpdate]
