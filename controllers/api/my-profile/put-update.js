@@ -36,7 +36,6 @@ const apiMyProfileUpdate = async function(req, res) {
 
   const profile = await currentUser.update(userParams, { fields: permittedParams })
 
-  console.log(req.files)
   // await profile.update({ image: req.file.location }, { fields: permittedParams })
 
   res.status(200).json(profile)
