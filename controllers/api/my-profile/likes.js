@@ -1,21 +1,33 @@
 const { body } = require('express-validator')
-const { Like } = require('../../models')
+const { User } = require('../../../models')
 
 const { authenticateCurrentUserByToken } = require('../../_helpers')
 
-const permittedParams = [
-  'TargetId',
-  'like'
-]
-
-const apiMyLikesUpdate = async function(req, res) {
-  const { body: userParams } = req
+const apiMyLikesGet = async function(req, res) {
   const { locals: { currentUser } } = res
 
-  const like = await currentUser.createLike(userParams, { fields: permittedParams })
-  await like.update({ TargetId:  , like: true })
+  //only wanna show OwnerId.name and the first uploaded img
+  const UsersLikingCurrentUser = await User.findAll({
+    include: [
+      {
+        association: User.OwnerLikes,
+        where: {
+          TargetId: (currentUser.id),
+          like: true,
+        },
+        attributes: []
+      },
+      {
+        association: User.UserImages,
+        attributes: ['image'],
+        limit: 1
+      }
+    ],
+    attributes: ['name']
+  })
 
-  res.status(200).json(like)
+
+  res.status(200).json(UsersLikingCurrentUser)
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), apiMyLikesUpdate]
+module.exports = [authenticateCurrentUserByToken('json'), apiMyLikesGet]
