@@ -6,13 +6,15 @@ const { User } = require('../../../models')
 const apiMyRecommendations = async function(req, res) {
   const { body: userParams } = req
   const {
-    locals: {
-      currentUser: {
-        lookingFor,
-        location
-      }
-    }
-  } = res
+      locals: {
+          currentUser: {
+              lookingFor,
+              location
+            }
+          }
+        } = res
+
+  console.log(res)
 
   const whereQuery = {
     location
@@ -27,4 +29,4 @@ const apiMyRecommendations = async function(req, res) {
   res.status(200).json(showUsers)
 }
 
-module.exports = [authenticateCurrentUserByToken, apiMyRecommendations]
+module.exports = [authenticateCurrentUserByToken('json'), apiMyRecommendations]

@@ -6,7 +6,7 @@ const { authenticateCurrentUserByToken } = require('../../_helpers')
 const apiMyLikesGet = async function(req, res) {
   const { locals: { currentUser } } = res
 
-  //only wanna show OwnerId.name and the first uploaded img
+  //only show OwnerId.name and the first uploaded img
   const UsersLikingCurrentUser = await User.findAll({
     include: [
       {
