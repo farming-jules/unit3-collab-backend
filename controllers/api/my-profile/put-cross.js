@@ -3,18 +3,18 @@ const { body } = require('express-validator')
 const { User, Like } = require('../../../models')
 const { authenticateCurrentUserByToken } = require('../../_helpers')
 
-const permittedLikeParams = ['like', 'TargetId']
+const permittedParams = ['like', 'TargetId']
 
-const apiAuthCross = async function(req, res) {
+const apiMyProfileDislike = async function(req, res) {
   const { body: userParams } = req
-  const { locals: { currentUser, currentTarget } } = res
+  const { locals: { currentUser } } = res
 
-  console.log(res)
+  // console.log(req)
 
-  const cross = await currentUser.createLike(userParams, { fields: permittedParams })
-  await like.update({ TargetId: userParams, like: false })
+  const clickDislike = await currentUser.createLike( {body: userParams}, { fields: permittedParams })
+  await clickDislike.update({ currentUser, like: false })
 
-  res.status(200).json(cross)
+  res.status(200).json(clickDislike)
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), apiAuthCross]
+module.exports = [authenticateCurrentUserByToken('json'), apiMyProfileDislike]
