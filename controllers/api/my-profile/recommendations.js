@@ -14,8 +14,6 @@ const apiMyRecommendations = async function(req, res) {
           }
         } = res
 
-  console.log(res)
-
   const whereQuery = {
     location
   }

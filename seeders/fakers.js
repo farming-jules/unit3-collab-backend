@@ -20,7 +20,7 @@ module.exports = {
         sexualOrientation: Faker.Random.element(['Men', 'Women', 'other']),
         passion: Faker.Pokemon.name(),
         lookingFor: Faker.Random.element(['Men', 'Women', 'Everyone']),
-        location: Faker.Address.city(),
+        location: Faker.Random.element(['HK', 'Tokyo', 'London']),
         Bio: Faker.Lorem.sentence(2),
         UserImages: [
           {
