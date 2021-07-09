@@ -20,8 +20,8 @@ module.exports = {
         sexualOrientation: Faker.Random.element(['Men', 'Women', 'other']),
         passion: Faker.Pokemon.name(),
         lookingFor: Faker.Random.element(['Men', 'Women', 'Everyone']),
-        location: Faker.Address.city(),
-        Bio: Faker.Lorem.sentence(2),
+        location: Faker.Random.element(['HK', 'Tokyo', 'London']),
+        bio: Faker.Lorem.sentence(2),
         UserImages: [
           {
             image: Faker.LoremPixel.image("300x300")

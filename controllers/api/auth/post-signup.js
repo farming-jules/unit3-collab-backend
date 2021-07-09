@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt")
+const crypto = require('crypto')
 const { body } = require('express-validator')
 
 const { User } = require('../../../models')
@@ -36,6 +37,11 @@ const apiAuthSignup = async function(req, res) {
   user.passwordHash = await bcrypt.hash(userParams.password, 10)
   // Saves the user
   await user.save()
+
+  // Generate a token and set it as cookie
+  const token = crypto.randomBytes(64).toString('hex')
+  await user.createAuthenticityToken({ token })
+  req.session.token = token
 
   // Prevents the passwordHash from being sent!
   res.status(200).json(userSerializer(user))

@@ -4,18 +4,20 @@ const { getUserByToken } = require('../controllers/_helpers')
 
 router.use(getUserByToken)
 
-router.post('/api/auth/signup', require('../controllers/api/auth/post-signup'))                      // SIGNUP POST    /api/auth/signup
-router.post('/api/auth/login', require('../controllers/api/auth/post-login'))                        // LOGIN  GET     /api/auth/login
+router.post('/api/auth/signup',   require('../controllers/api/auth/post-signup'))                    // SIGNUP POST    /api/auth/signup
+router.post('/api/auth/login',    require('../controllers/api/auth/post-login'))                     // LOGIN  GET     /api/auth/login
 router.delete('/api/auth/logout', require('../controllers/api/auth/delete-logout'))                  // LOGOUT DELETE  /api/auth/logout
 
-router.post('/api/my/profile', require('../controllers/api/my-profile/post-create'))                       // CREATE  POST    /api/my/profile
-router.put('/api/my/profile', require('../controllers/api/my-profile/put-update'))                         // UPDATE  PUT     /api/my/profile/
-// router.delete('/api/my/profile', require('../controllers/api/my-profile/deleteaccount'))                   // DESTROY DELETE  /api/my/profile/
+router.get('/api/my/profile',    require('../controllers/api/my-profile/get-show'))                  // SHOW    GET     /api/my/profile/
+router.put('/api/my/profile',    require('../controllers/api/my-profile/put-update'))                // UPDATE  PUT     /api/my/profile/
+router.delete('/api/my/profile', require('../controllers/api/my-profile/delete-destroy'))            // DESTROY DELETE  /api/my/profile/
 
-// router.post('/api/my/likes', require('../controllers/api/my-profile/likes'))                               // CREATE  POST    /api/my/likes
+router.get('/api/my/likes',  require('../controllers/api/my-likes/get-index'))                       // INDEX   GET     /api/my/likes
+router.post('/api/my/likes', require('../controllers/api/my-likes/post-create'))                     // CREATE  PUT     /api/my/likes
 
-router.get('/api/my/matches', require('../controllers/api/my-profile/matches'))                           // CREATE  POST    /api/my/matches
-router.get('/api/my/recommendations', require('../controllers/api/my-profile/recommendations'))           // CREATE  POST    /api/my/recommendations
+router.get('/api/my/matches', require('../controllers/api/my-matches/get-index'))                    // Index   GET     /api/my/matches
+
+router.get('/api/my/recommendations', require('../controllers/api/my-recommendations/get-index'))    // Index   GET     /api/my/recommendations
 
 // Error Response
 router.use(function (req, res) {

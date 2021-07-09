@@ -23,7 +23,7 @@ const apiAuthLogin = async function(req, res) {
   const { body: { email, password } } = req
 
   // Find the user
-  let user = await User.findOne({ where: { email } })
+  let user = await User.findOne({ where: { email }, include: User.UserImages })
   if (!user) return res.status(404).json({ message: `User not found with email: ${email}` })
 
   // Check if password entered is the same as the one in DB
