@@ -1,4 +1,3 @@
-const { User, UserImage, Like } = require('../../../models')
 const { authenticateCurrentUserByToken } = require('../../_helpers')
 
 const userSerializer = function(values) {
@@ -7,10 +6,10 @@ const userSerializer = function(values) {
   return user
 }
 
-const apiMyProfileDeleteAccount = async function(req, res) {
+const apiMyProfileShow = async function(req, res) {
   const { locals: { currentUser } } = res
 
   res.status(200).json(userSerializer(currentUser))
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), apiMyProfileDeleteAccount]
+module.exports = [authenticateCurrentUserByToken('json'), apiMyProfileShow]

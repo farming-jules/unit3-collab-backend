@@ -1,18 +1,15 @@
-const { body } = require('express-validator')
-
 const { authenticateCurrentUserByToken } = require('../../_helpers')
 const { User } = require('../../../models')
 
-const apiMyRecommendations = async function(req, res) {
-  const { body: userParams } = req
+const apiMyRecommendationsIndex = async function(req, res) {
   const {
-      locals: {
-          currentUser: {
-              lookingFor,
-              location
-            }
-          }
-        } = res
+    locals: {
+      currentUser: {
+        lookingFor,
+        location
+      }
+    }
+  } = res
 
   const whereQuery = {
     location
@@ -27,4 +24,4 @@ const apiMyRecommendations = async function(req, res) {
   res.status(200).json(showUsers)
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), apiMyRecommendations]
+module.exports = [authenticateCurrentUserByToken('json'), apiMyRecommendationsIndex]

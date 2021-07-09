@@ -1,15 +1,14 @@
 const { authenticateCurrentUserByToken } = require('../../_helpers')
-const { Like } = require('../../../models')
-const { User } = require('../../../models')
+const { Like, User } = require('../../../models')
 const { Op } = require("sequelize")
 
-const apiMyMatchesUpdate = async function(req, res) {
-  const { params: { id } } = req
+const apiMyMatchesIndex = async function(req, res) {
   const { locals: { currentUser } } = res
 
   //findAll (ownerLikes) TargetIds where like = true
   let OwnerLikes = await Like.findAll({ where: { OwnerId: (currentUser.id), like: true }, raw: true, attributes: ['TargetId'] })
   TargetIds = OwnerLikes.map((x) => x.TargetId )
+
   //use TargetIds as OwnerIds to find TargetIds where TargetIds= 1, and like: true
   let matchedLikes = await Like.findAll({ where: { TargetId: (currentUser.id), like: true, OwnerId: { [Op.in]: TargetIds} }, raw: true })
   matchedLikeIds = matchedLikes.map((x) => x.OwnerId)
@@ -19,4 +18,4 @@ const apiMyMatchesUpdate = async function(req, res) {
   res.status(200).json(matches)
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), apiMyMatchesUpdate]
+module.exports = [authenticateCurrentUserByToken('json'), apiMyMatchesIndex]

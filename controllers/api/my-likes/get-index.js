@@ -1,9 +1,8 @@
-const { body } = require('express-validator')
 const { User } = require('../../../models')
 
 const { authenticateCurrentUserByToken } = require('../../_helpers')
 
-const apiMyLikesGet = async function(req, res) {
+const apiMyLikesIndex = async function(req, res) {
   const { locals: { currentUser } } = res
 
   //only show OwnerId.name and the first uploaded img
@@ -30,4 +29,4 @@ const apiMyLikesGet = async function(req, res) {
   res.status(200).json(UsersLikingCurrentUser)
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), apiMyLikesGet]
+module.exports = [authenticateCurrentUserByToken('json'), apiMyLikesIndex]
