@@ -17,35 +17,35 @@ module.exports = {
         type: Sequelize.STRING
       },
       name: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       dateOfBirth: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.DATE
       },
       gender: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       sexualOrientation: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       passion: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       lookingFor: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       location: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       Bio: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.TEXT
       },
       createdAt: {
