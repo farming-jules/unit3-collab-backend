@@ -1,6 +1,6 @@
 const moment = require('moment')
 
-const { AuthenticityToken } = require("../../models")
+const { AuthenticityToken, User } = require("../../models")
 
 module.exports = async function (req, res, next) {
   const { session: { token } } = req
@@ -8,7 +8,10 @@ module.exports = async function (req, res, next) {
   if (token) {
     const authToken = await AuthenticityToken.findOne({
       where: { token },
-      include: AuthenticityToken.User
+      include: {
+        association: AuthenticityToken.User,
+        include: User.UserImages
+      }
     })
 
     if (authToken) {

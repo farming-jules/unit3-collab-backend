@@ -1,6 +1,7 @@
 const { body } = require('express-validator')
 
-const { authenticateCurrentUserByToken } = require('../../_helpers')
+const { authenticateCurrentUserByToken, MulterParser, checkValidation } = require('../../_helpers')
+
 
 const permittedLikeParams = ['like', 'TargetId']
 
@@ -13,6 +14,8 @@ const apiMyLikesCreate = async function(req, res) {
   const { body } = req
   const { locals: { currentUser } } = res
 
+  console.log(body)
+
   // const likeParams = {
   //   TargetId: 1,
   //   like: true // false
@@ -23,4 +26,4 @@ const apiMyLikesCreate = async function(req, res) {
   res.status(200).json(like)
 }
 
-module.exports = [authenticateCurrentUserByToken('json'), apiMyLikesCreate]
+module.exports = [authenticateCurrentUserByToken('json'), MulterParser.none(), validations, checkValidation, apiMyLikesCreate]
