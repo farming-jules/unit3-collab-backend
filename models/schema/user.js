@@ -17,35 +17,35 @@ module.exports = function(sequelize, DataTypes) {
     },
     name: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: true
     },
     dateOfBirth: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
     },
     gender: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: true
     },
     sexualOrientation: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: true
     },
     passion: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: true
     },
     lookingFor: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: true
     },
     location: {
       type: DataTypes.STRING(255),
-      allowNull: false
+      allowNull: true
     },
-    Bio: {
+    bio: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: true
     }
   }, {
     sequelize,
