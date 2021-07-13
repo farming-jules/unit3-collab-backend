@@ -13,7 +13,7 @@ const apiMyMatchesIndex = async function(req, res) {
   let matchedLikes = await Like.findAll({ where: { TargetId: (currentUser.id), like: true, OwnerId: { [Op.in]: TargetIds} }, raw: true })
   matchedLikeIds = matchedLikes.map((x) => x.OwnerId)
 
-  let matches = await User.findAll({ where: { id: { [Op.in]:matchedLikeIds } }, raw: true,
+  let matches = await User.findAll({ where: { id: { [Op.in]:matchedLikeIds } },
     include: [
       {
         association: User.OwnerLikes,
@@ -35,23 +35,3 @@ const apiMyMatchesIndex = async function(req, res) {
 }
 
 module.exports = [authenticateCurrentUserByToken('json'), apiMyMatchesIndex]
-
-
-// await User.findAll({
-//   include: [
-//     {
-//       association: User.OwnerLikes,
-//       where: {
-//         TargetId: (currentUser.id),
-//         like: true,
-//       },
-//       attributes: []
-//     },
-//     {
-//       association: User.UserImages,
-//       attributes: ['image'],
-//       limit: 1
-//     }
-//   ],
-//   attributes: ['name']
-// })
