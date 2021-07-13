@@ -6,7 +6,7 @@ const { authenticateCurrentUserByToken, MulterParser, checkValidation } = requir
 const permittedLikeParams = ['like', 'TargetId']
 
 const validations = [
-  body('TargetId').isString().notEmpty().withMessage('TargetId cannot be empty'),
+  body('TargetId').isInt().notEmpty().withMessage('TargetId cannot be empty'),
   body('like').isBoolean()
 ]
 
