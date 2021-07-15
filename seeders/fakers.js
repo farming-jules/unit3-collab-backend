@@ -10,7 +10,7 @@ module.exports = {
 
     const userIds = []
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 500; i++) {
       const user = await User.create({
         email: `${i}@test.com`,
         passwordHash: await bcrypt.hash('123456', 10),
