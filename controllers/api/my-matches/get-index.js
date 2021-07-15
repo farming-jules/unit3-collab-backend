@@ -29,7 +29,7 @@ const apiMyMatchesIndex = async function(req, res) {
         attributes: ['image']
       }
     ],
-    attributes: ['name'] })
+    attributes: ['id', 'name'] })
 
   res.status(200).json(matches)
 }

@@ -22,7 +22,7 @@ const apiMyLikesIndex = async function(req, res) {
         attributes: ['image']
       }
     ],
-    attributes: ['name']
+    attributes: ['id', 'name']
   })
 
 

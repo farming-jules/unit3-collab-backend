@@ -1,7 +1,7 @@
 const { body } = require('express-validator')
 
+const { User } = require('../../../models')
 const { authenticateCurrentUserByToken, MulterParser, checkValidation } = require('../../_helpers')
-
 
 const permittedLikeParams = ['like', 'TargetId']
 
@@ -23,7 +23,29 @@ const apiMyLikesCreate = async function(req, res) {
 
   const like = await currentUser.createLike(body, { fields: permittedLikeParams })
 
-  res.status(200).json(like)
+  let matched
+  if (body.like) {
+    matched = await User.findOne({
+      order: [[User.UserImages, 'id', 'ASC']],
+      include: [
+        {
+          association: User.OwnerLikes,
+          where: {
+            OwnerId: body.TargetId,
+            TargetId: currentUser.id,
+            like: true
+          },
+          attributes: []
+        }, {
+          association: User.UserImages,
+          attributes: ['image']
+        }
+      ],
+      attributes: ['id', 'name']
+    })
+  }
+
+  res.status(200).json({ like, matched })
 }
 
 module.exports = [authenticateCurrentUserByToken('json'), MulterParser.none(), validations, checkValidation, apiMyLikesCreate]

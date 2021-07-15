@@ -27,7 +27,7 @@ const apiMyRecommendationsIndex = async function(req, res) {
     whereQuery.gender = lookingFor === 'Men' ? 'M' : 'F'
   }
 
-  const showUsers = await User.findAll({ where: whereQuery })
+  const showUsers = await User.findAll({ where: whereQuery, include: User.UserImages })
 
   res.status(200).json(showUsers)
 }
