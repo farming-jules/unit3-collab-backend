@@ -26,8 +26,7 @@ const apiMyMatchesIndex = async function(req, res) {
       },
       {
         association: User.UserImages,
-        attributes: ['image'],
-        limit: 1
+        attributes: ['image']
       }
     ],
     attributes: ['name'] })

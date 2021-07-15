@@ -27,8 +27,6 @@ const apiMyRecommendationsIndex = async function(req, res) {
     whereQuery.gender = lookingFor === 'Men' ? 'M' : 'F'
   }
 
-  console.log(whereQuery)
-
   const showUsers = await User.findAll({ where: whereQuery })
 
   res.status(200).json(showUsers)
