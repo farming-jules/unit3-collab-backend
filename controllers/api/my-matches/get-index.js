@@ -14,6 +14,7 @@ const apiMyMatchesIndex = async function(req, res) {
   matchedLikeIds = matchedLikes.map((x) => x.OwnerId)
 
   let matches = await User.findAll({ where: { id: { [Op.in]:matchedLikeIds } },
+    order: [[User.UserImages, 'id', 'ASC']],
     include: [
       {
         association: User.OwnerLikes,

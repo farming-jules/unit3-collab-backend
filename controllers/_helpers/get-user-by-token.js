@@ -8,6 +8,7 @@ module.exports = async function (req, res, next) {
   if (token) {
     const authToken = await AuthenticityToken.findOne({
       where: { token },
+      order: [[AuthenticityToken.User, User.UserImages, 'id', 'ASC']],
       include: {
         association: AuthenticityToken.User,
         include: User.UserImages

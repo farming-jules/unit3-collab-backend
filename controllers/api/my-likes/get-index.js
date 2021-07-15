@@ -7,6 +7,7 @@ const apiMyLikesIndex = async function(req, res) {
 
   //only show OwnerId.name and the first uploaded img
   const UsersLikingCurrentUser = await User.findAll({
+    order: [User.UserImages, 'id', 'ASC'],
     include: [
       {
         association: User.OwnerLikes,
