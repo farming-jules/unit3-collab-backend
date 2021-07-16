@@ -14,7 +14,7 @@ const apiMyLikesCreate = async function(req, res) {
   const { body } = req
   const { locals: { currentUser } } = res
 
-  console.log(body)
+  // console.log(body)
 
   // const likeParams = {
   //   TargetId: 1,
